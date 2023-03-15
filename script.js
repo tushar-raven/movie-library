@@ -5,6 +5,7 @@ const displayGrid = document.querySelector(".display-grid");
 const submitButton = document.querySelector(".submit-btn");
 const addMovieForm = document.querySelector(".add-movie-form");
 
+//empty array for storing movies
 let movieLibrary = [];
 
 addButton.addEventListener("click", openForm);
@@ -21,8 +22,17 @@ function closeForm(e) {
   addMovieForm.reset();
 }
 
+// object constructor
+function Movie(name, director, genre, haveSeen) {
+  this.name = name;
+  this.director = director;
+  this.genre = genre;
+  this.haveSeen = haveSeen;
+}
+
 function submitForm(e) {
   e.preventDefault(e);
+
   let movieName = document.querySelector("#name").value;
   let movieDirector = document.querySelector("#director").value;
   let movieGenre = document.querySelector("#genre").value;
@@ -42,25 +52,10 @@ function submitForm(e) {
   addMovieForm.reset();
 }
 
-function Movie(name, director, genre, haveSeen) {
-  this.name = name;
-  this.director = director;
-  this.genre = genre;
-  this.haveSeen = haveSeen;
-}
-
-Movie.prototype.toggleSeen = function () {
-  if (this.haveSeen == "true") {
-    this.haveSeen = "false";
-  } else {
-    this.haveSeen = "true";
-  }
-};
-
 function showMovie(movieLibrary) {
   let numberOfMovies = movieLibrary.length;
 
-  displayGrid.innerHTML = "";
+  displayGrid.innerHTML = ""; //to avoid repetition
 
   for (let i = 0; i < numberOfMovies; i++) {
     let div = document.createElement("div");
@@ -108,7 +103,18 @@ function removeCard(e) {
   showMovie(movieLibrary);
 }
 
+//so that the object have access to this new function
+
+Movie.prototype.toggleSeen = function () {
+  if (this.haveSeen == "true") {
+    this.haveSeen = "false";
+  } else {
+    this.haveSeen = "true";
+  }
+};
+
 function toggle(e) {
   uniqueId = e.target.id;
+  movieLibrary[uniqueId].toggleSeen();
   showMovie(movieLibrary);
 }
