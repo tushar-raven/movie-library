@@ -23,11 +23,22 @@ function closeForm(e) {
 }
 
 // object constructor
-function Movie(name, director, genre, haveSeen) {
-  this.name = name;
-  this.director = director;
-  this.genre = genre;
-  this.haveSeen = haveSeen;
+
+class Movie {
+  constructor(name, director, genre, haveSeen) {
+    this.name = name;
+    this.director = director;
+    this.genre = genre;
+    this.haveSeen = haveSeen;
+  }
+
+  toggleSeen() {
+    if (this.haveSeen == "true") {
+      this.haveSeen = "false";
+    } else {
+      this.haveSeen = "true";
+    }
+  }
 }
 
 function submitForm(e) {
@@ -102,16 +113,6 @@ function removeCard(e) {
   movieLibrary.splice(uniqueId, 1);
   showMovie(movieLibrary);
 }
-
-//so that the object have access to this new function
-
-Movie.prototype.toggleSeen = function () {
-  if (this.haveSeen == "true") {
-    this.haveSeen = "false";
-  } else {
-    this.haveSeen = "true";
-  }
-};
 
 function toggle(e) {
   uniqueId = e.target.id;
