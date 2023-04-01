@@ -49,6 +49,11 @@ function submitForm(e) {
   let movieGenre = document.querySelector("#genre").value;
   let movieSeen = document.querySelector("#have-seen").checked;
 
+  if (!movieName || !movieDirector) {
+    alert("please fill all the details");
+    return;
+  }
+
   movie = new Movie(
     `${movieName}`,
     `${movieDirector}`,
